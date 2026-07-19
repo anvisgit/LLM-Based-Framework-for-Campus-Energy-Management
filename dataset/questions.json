@@ -1,0 +1,17 @@
+[
+  {"question": "What is phase-lock loop synchronization?", "category": "technical", "expected_source": "ferc_order_901"},
+  {"question": "What are the four reliability gap areas that FERC directed NERC to address in Order No. 901?", "category": "technical", "expected_source": "ferc_order_901"},
+  {"question": "What deadline did NERC have to submit IBR performance requirement standards?", "category": "technical", "expected_source": "ferc_order_901"},
+  {"question": "What is the difference between an inverter-based resource and a distributed energy resource?", "category": "technical", "expected_source": "nerc_ibr_intro_guide"},
+  {"question": "What is an inverter?", "category": "technical", "expected_source": "nerc_ibr_intro_guide"},
+  {"question": "How does the fault current of inverter-based resources compare to synchronous generation?", "category": "technical", "expected_source": "nerc_ibr_intro_guide"},
+  {"question": "What is Reliability Standard MOD-032-2 and what is its purpose?", "category": "technical", "expected_source": "ferc_order_rd26_2026"},
+  {"question": "How does NERC define 'model validation' versus 'model verification'?", "category": "technical", "expected_source": "ferc_order_rd26_2026"},
+  {"question": "What is the legacy facility exclusion in proposed Reliability Standard MOD-026-2, and why did FERC decline to remove it?", "category": "technical", "expected_source": "ferc_order_rd26_2026"},
+
+  {"question": "Please summarize FERC Order No. 901.", "category": "general", "expected_source": "ferc_order_901"},
+  {"question": "What is the overall purpose of NERC's introduction guide to inverter-based resources?", "category": "general", "expected_source": "nerc_ibr_intro_guide"},
+  {"question": "What did FERC approve in the February 2026 order on IBR modeling standards?", "category": "general", "expected_source": "ferc_order_rd26_2026"},
+
+  {"question": "How does the February 2026 FERC order relate back to the original directives in Order No. 901?", "category": "cross_document", "expected_source": "both orders"}
+]

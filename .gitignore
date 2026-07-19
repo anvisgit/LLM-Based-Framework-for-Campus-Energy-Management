@@ -1,0 +1,10 @@
+# Local secrets
+.env
+.env.local
+.qwen_api_key
+__pycache__/
+*.pyc
+index/
+batch_results.json
+
+.env
