@@ -1,31 +1,69 @@
-# Problem Statement: LLM- and Graph Foundation Model-Based Framework for Campus Energy Management
+# LLM- and GNN-Based Framework for Campus Energy Management
 
-Campus energy systems sit at the intersection of two open problems in current AI for energy research.
+## Purpose
 
-On one side, large language models have shown they can serve as flexible, natural-language interfaces to power system data and technical documents — answering questions, retrieving domain knowledge, and even attempting simplified optimization tasks. However, they are not physically grounded: they can approximate a small optimal power flow (OPF) problem by prompting alone, but their accuracy degrades as problems scale, and they have no principled way to enforce the physical laws (Kirchhoff's laws, power balance) that govern a real grid. On the other side, graph neural network-based foundation models for power flow (GridFMs) have been shown to solve grid physics directly and efficiently — reconstructing bus-level voltage, angle, and power injections at 3–4 orders of magnitude lower computational cost than conventional solvers. However, this line of work has so far targeted large-scale transmission systems using public benchmark datasets, not the building- and feeder-scale distribution networks that campuses actually operate, and it offers no interface a non-expert campus stakeholder (a facilities manager, a student, an administrator) could use directly.
+To build a system that can answer questions about campus energy usage and
+help optimize it, by combining a physics-grounded graph neural network (GNN)
+with a language-based interface — the GNN computes grid state, the LLM
+explains it and takes natural-language queries, and neither is asked to do
+the other's job.
 
-## The Gap
 
-There is currently no framework that combines a **physically grounded, computationally efficient model of a real distribution-scale network** with an **accessible natural-language interface**, applied to a setting where the underlying network topology and data are limited, partially proprietary, and much smaller in scale than the transmission-grid benchmarks the foundation model literature has focused on.
+##  PS Breakdown
 
-## Problem Statement
+The PS splits into three distinct pieces of work
 
-This project addresses the problem of **building and evaluating a hybrid AI pipeline for campus energy management**, in which a graph neural network — pretrained in a self-supervised manner to reconstruct masked power-flow states, following the grid foundation model (GridFM) paradigm — is fine-tuned on the campus's own network topology and energy data to provide fast, physically consistent estimates of energy usage and grid state. This model is then made accessible through a retrieval-augmented LLM interface that translates natural-language questions and optimization requests into queries against the model, rather than asking the LLM to reason about grid physics directly.
+- **The physics engine:** self-supervised masked
+  pretraining on power-flow graphs, and cross-topology generalization
+  testing, are established methods from the literature this project draws
+  on directly (GraphMAE, the Joule GridFM roadmap, PowerGraph). Building
+  and validating this at benchmark scale is necessary groundwork and the
+  load-bearing piece of evidence for the whole PS, but on its own it is a
+  reproduction, not a contribution.
 
-**Central research question:** Can a foundation-model approach designed for large transmission grids be adapted to work at a much smaller scale, with much less data, on a real (not benchmark) network — and does doing so produce a genuinely more capable and more trustworthy energy assistant than a generic LLM+RAG system alone?
+- **The language interface :** conceptually simple — retrieve
+  context, call the GNN for numbers, never compute physics in the LLM —
+  but the part most likely to consume unplanned time in practice: tool-
+  calling reliability, prompt iteration, and how cleanly the LLM reports
+  numeric GNN output without distorting it.
 
-## Objectives
+- **The comparative evaluation :** this is the piece that
+  actually answers the central question and is where any genuine
+  contribution lives. It requires reproducing SafePowerGraph-LLM's setup
+  closely enough for a fair comparison, which is effort on the same order
+  as the physics engine itself, not a quick add-on at the end.
 
-1. Determine whether a GNN pretrained via masked feature reconstruction on public benchmark grids (IEEE test cases, PowerGraph) transfers usefully to a much smaller campus-scale network topology, and how much campus-specific data is needed to fine-tune it effectively.
-2. Build the data and graph pipeline needed to represent the campus's electrical network and energy consumption data in the node/edge format required by the model.
-3. Design and implement a retrieval-augmented LLM layer that answers natural-language questions about campus energy usage by querying the trained GNN's outputs (and campus documents/metering data), rather than attempting numerical reasoning itself.
-4. Evaluate the combined system on:
-   - (a) prediction accuracy against ground-truth power flow or metering data,
-   - (b) computational speed versus a conventional solver, and
-   - (c) usability and correctness of the natural-language answers it produces. 
 
-## Significance
 
-Most existing GridFM work is a "moonshot" proposal validated on public transmission benchmarks; this project would be one of the first attempts to test that vision at the scale and data-scarcity conditions a real institution (rather than a national grid operator) actually faces. It also directly addresses a limitation noted in the PES-GM paper's own discussion — that LLMs alone lack domain-specific knowledge and struggle beyond toy-scale OPF — by giving the LLM a physics-grounded model to defer to, instead of asking it to compute grid physics itself.
+The line of thought, end to end: an LLM alone is not trustworthy for grid
+physics → a GNN can be, by construction, but has only been validated on
+benchmark-scale synthetic topologies → pair the two so each does what it's
+suited for → test that pairing against the alternative (LLM-only) rather
+than assume it wins → and only then push the same pipeline toward the
+harder, currently-untested case of a real, small network, if the data to do
+so becomes available.
 
---
+## Plan
+
+1. Solve power flow on public benchmark grids and generate a dataset of
+   varied load conditions (solver + graph construction pipeline).
+2. Train a supervised GNN baseline (predict masked node features, compare
+   against the solver) as a correctness check before self-supervision.
+3. Move to self-supervised masked pretraining with a physics-consistency
+   loss term, following the GridFM-v0 architecture.
+4. Hold out a topology, fine-tune on it, and measure transfer.
+5. Build the RAG/tool-calling LLM interface on top of the trained GNN.
+6. Reproduce an LLM-only baseline (SafePowerGraph-LLM-style) on the same
+   benchmark and run the direct comparison in Objective 4.
+7. If campus data becomes available, fine-tune and evaluate on it as the
+   real-network test in Objective 5.
+
+## References
+
+- Hamann et al., "Foundation models for the electric power grid," *Joule* (2024)
+- Huang et al., "Large Foundation Models for Power Systems," *IEEE PES General Meeting* (2024)
+- Bernier et al., "SafePowerGraph-LLM: Novel Power Grid Graph Embedding and Optimization with Large Language Models" (2025)
+- Karabulut et al., "Generalization of Graph Neural Network Models for Distribution Grid Fault Detection" (2025)
+- Varbella et al., "PowerGraph: A Power Grid Benchmark Dataset for Graph Neural Networks" (2024)
+- Piloto et al., "CANOS: A fast and scalable neural AC-OPF solver robust to N-1 perturbations" (2024)
+- Hou et al., "GraphMAE: Self-Supervised Masked Graph Autoencoders" (2022)
