@@ -1,0 +1,11 @@
+{
+ "mall11": {
+  "n": 1000,
+  "buses": 11,
+  "nonconv_rate": 0.0,
+  "n1_frac": 0.0,
+  "frac_with_voltage_violation": 0.0,
+  "max_mismatch_pu": 7.78740093243524e-11,
+  "minutes": 1.9371869246164957
+ }
+}
