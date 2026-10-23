@@ -1,0 +1,16 @@
+{
+  "case": "case57",
+  "scenarios": 300,
+  "seed": 0,
+  "split_sizes": {
+    "train": 240,
+    "validation": 30,
+    "test": 30
+  },
+  "best_epoch": 75,
+  "test_metrics": {
+    "vm_mae_pu": 0.009291863123575847,
+    "va_rmse_deg": 2.4031549537384356
+  },
+  "checkpoint": "work\\models\\case57_gnn.pt"
+}
