@@ -67,3 +67,29 @@ so becomes available.
 - Varbella et al., "PowerGraph: A Power Grid Benchmark Dataset for Graph Neural Networks" (2024)
 - Piloto et al., "CANOS: A fast and scalable neural AC-OPF solver robust to N-1 perturbations" (2024)
 - Hou et al., "GraphMAE: Self-Supervised Masked Graph Autoencoders" (2022)
+
+## Run the app
+
+From the repository root, in PowerShell:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements-app.txt
+streamlit run app.py
+```
+
+The app loads bundled GNN checkpoints and synthetic scenarios. Ollama explanations are optional. Start Ollama and install a model with `ollama pull qwen2.5:1.5b`; the sidebar lists installed models. Set `OLLAMA_BASE_URL` and `OLLAMA_MODEL` to override the defaults.
+
+## App results
+
+Test results use one seeded split of 300 synthetic scenarios per IEEE grid (240/30/30 train/validation/test):
+
+| Grid | Voltage MAE (pu) | Angle RMSE |
+|---|---:|---:|
+| IEEE 14 | 0.00246 | 1.210° |
+| IEEE 30 | 0.00224 | 0.705° |
+| IEEE 57 | 0.00929 | 2.403° |
+| IEEE 118 | 0.00218 | 1.501° |
+
+IEEE 118 topology transfer at 100 fine-tuning labels: **0.01256 pu Vm MAE**, **4.875° Va RMSE**. Its supplied AC residual is **2.19e-4 pu**. These synthetic single-split results do not establish robustness or operational readiness.
