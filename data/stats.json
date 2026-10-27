@@ -1,0 +1,59 @@
+{
+  "case14": {
+    "n": 300,
+    "buses": 14,
+    "nonconv_rate": 0.003278688524590164,
+    "n1_frac": 0.32,
+    "frac_with_voltage_violation": 0.06,
+    "stress_frac": 0.2633333333333333,
+    "stress_voltage_violation_frac": 0.013333333333333334,
+    "load_scale_mean": 1.1304066066048888,
+    "max_mismatch_pu": 9.100343031226421E-09,
+    "minutes": 0.8328379392623901
+  },
+  "case30": {
+    "n": 300,
+    "buses": 30,
+    "nonconv_rate": 0.0,
+    "n1_frac": 0.2733333333333333,
+    "frac_with_voltage_violation": 0.44333333333333336,
+    "stress_frac": 0.23333333333333334,
+    "stress_voltage_violation_frac": 0.21666666666666667,
+    "load_scale_mean": 1.0996592182459908,
+    "max_mismatch_pu": 9.882767604274534E-09,
+    "minutes": 0.6726606408754985
+  },
+  "case57": {
+    "n": 300,
+    "buses": 57,
+    "nonconv_rate": 0.11988304093567251,
+    "n1_frac": 0.22666666666666666,
+    "frac_with_voltage_violation": 1.0,
+    "stress_frac": 0.15,
+    "stress_voltage_violation_frac": 0.15,
+    "load_scale_mean": 1.0582880471871723,
+    "max_mismatch_pu": 9.854984037160897E-09,
+    "minutes": 0.9239966988563537
+  },
+  "case118": {
+    "n": 300,
+    "buses": 118,
+    "nonconv_rate": 0.0,
+    "n1_frac": 0.27,
+    "frac_with_voltage_violation": 0.78,
+    "stress_frac": 0.23,
+    "stress_voltage_violation_frac": 0.23,
+    "load_scale_mean": 1.087256914682042,
+    "max_mismatch_pu": 0.0002187599573342247,
+    "minutes": 0.7746268749237061
+  },
+  "mall11": {
+    "n": 1000,
+    "buses": 11,
+    "nonconv_rate": 0.0,
+    "n1_frac": 0.0,
+    "frac_with_voltage_violation": 0.0,
+    "max_mismatch_pu": 7.78740093243524E-11,
+    "minutes": 1.9371869246164957
+  }
+}
