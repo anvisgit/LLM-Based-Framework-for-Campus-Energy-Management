@@ -1,0 +1,16 @@
+{
+  "case": "case118",
+  "scenarios": 300,
+  "seed": 0,
+  "split_sizes": {
+    "train": 240,
+    "validation": 30,
+    "test": 30
+  },
+  "best_epoch": 78,
+  "test_metrics": {
+    "vm_mae_pu": 0.0021846606706579525,
+    "va_rmse_deg": 1.5012264216919722
+  },
+  "checkpoint": "work\\models\\case118_gnn.pt"
+}
