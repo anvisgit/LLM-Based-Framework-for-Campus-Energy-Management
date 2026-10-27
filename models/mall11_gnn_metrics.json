@@ -1,0 +1,16 @@
+{
+  "case": "mall11",
+  "scenarios": 1000,
+  "seed": 0,
+  "split_sizes": {
+    "train": 800,
+    "validation": 100,
+    "test": 100
+  },
+  "best_epoch": 61,
+  "test_metrics": {
+    "vm_mae_pu": 0.00015398174524307252,
+    "va_rmse_deg": 0.005234040363938533
+  },
+  "checkpoint": "models\\mall11_gnn.pt"
+}
